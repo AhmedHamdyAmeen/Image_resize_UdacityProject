@@ -3,10 +3,15 @@ import path from "path";
 import { existsSync } from "fs";
 
 import { resizeImgSharp } from "./../Helpers/resizeImg";
+import { isFolderFound } from "./../Helpers/fsHandler";
 import { imgs } from "../../Utils/imgs";
 
 const resizeImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    /** Check if the folder not found create it..
+     */
+    isFolderFound(path.resolve("./") + `/public/thumbnails`);
+
     // const { width, height, imgName } = req.query;
     const width = Number(req.query.width);
     const height = Number(req.query.height);
